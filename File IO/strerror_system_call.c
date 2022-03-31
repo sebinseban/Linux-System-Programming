@@ -8,7 +8,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <errno.h>
-
+#include <string.h>
 //following code opens the file and stores the file descriptor in the variable fd
 int main()
 {
@@ -20,11 +20,20 @@ int main()
     printf("Error code: %d\n", errno);
 
 //error checking , implement this also
+
     if (fd < 0)
     {
         perror(""); //for perror, no need to provide any default messsages, it will print standard error messages
+        //char s[100] = strerror(errno);
+        //strerror does the same functionality as perror does, but it returns a string instead of printing to stderr.
+        char s[100];
+        strcpy(s, strerror(errno));
+
+
+        printf("%s\n", s);
         exit(1);
     }
+
     else
     {
         printf("file opened successfully\n");
